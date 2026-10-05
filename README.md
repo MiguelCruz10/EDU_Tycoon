@@ -106,3 +106,10 @@ The output APK will be placed at:
 - **`android/`**: Android-specific module containing `AndroidManifest.xml` (landscape orientation), native libraries, asset packaging, and `AndroidLauncher`.
 - **`assets/`**: Shared game assets including Tiled maps (`.tmx`), tilesets, UI textures, sprite sheets, and TrueType fonts (`font.ttf`).
 - **`docs/`**: Project documentation, academic delivery materials, testing matrices, and execution evidence.
+
+---
+
+## 🔗 Project Deliverable Links (Entrega 1)
+
+- **Feature Issue**: [Issue #1: feat(economy): control de saldo no negativo en eventos de gasto y feedback visual](https://github.com/MiguelCruz10/EDU_Tycoon/issues/1)
+- **Pull Request**: [PR #2: feat: enforce non-negative balance rule on expense events and update HUD feedback](https://github.com/MiguelCruz10/EDU_Tycoon/pull/2)
