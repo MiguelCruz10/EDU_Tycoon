@@ -1,29 +1,29 @@
 # EDU_Tycoon
 
-Videojuego de simulación y gestión escolar móvil desarrollado en **Kotlin** con **libGDX** y **libKTX**.
+Mobile school simulation and management game developed in **Kotlin** using **libGDX** and **libKTX**.
 
 ---
 
-## 🛠️ Requisitos Previos
+## 🛠️ Prerequisites
 
-Antes de ejecutar el proyecto desde un clon limpio, asegúrate de contar con:
+Before executing the project from a clean clone, make sure your environment meets the following specifications (based on the project build configuration):
 
-1. **Git** instalado.
-2. **Java Development Kit (JDK)**: JDK 17 o JDK 21 (ej. OpenJDK / Amazon Corretto).
-3. **Android Studio** (versión reciente: Ladybug, Koala o Hedgehog) con:
-   - **Android SDK Platform 36** (o compatible con compileSdk 36).
-   - **Android SDK Build-Tools 36.0.0** (o superior).
-   - **Android SDK Command-line Tools** y **CMake / NDK** (si se requieren binarios nativos de libGDX).
+1. **Git** installed on your system.
+2. **Java Development Kit (JDK)**: OpenJDK 17 or OpenJDK 21 (e.g., Amazon Corretto 21). Note: The project compiles to Java 17 bytecode (`sourceCompatibility 17`, `jvmTarget JVM_17`).
+3. **Android Studio** (recent release: Ladybug, Koala, or Hedgehog) configured with:
+   - **Android SDK Platform 36** (`compileSdk 36`, `targetSdk 36`).
+   - **Android SDK Build-Tools 36.0.0**.
+   - **Android SDK Command-line Tools** and **CMake / NDK 25+** (for libGDX native libraries).
 
 > [!WARNING]
-> **Rutas en Windows:** El Android Gradle Plugin rechaza rutas con caracteres no ASCII (acentos, ñ, espacios excesivos). Clona el repositorio en una ruta limpia, por ejemplo `C:\Proyectos\EDU_Tycoon` o `C:\Users\<Usuario>\AndroidStudioProjects\EDU_Tycoon`.
+> **Windows Path Restriction:** The Android Gradle Plugin strictly rejects workspace directories containing non-ASCII characters or accents (e.g. `C:\Users\...\Imágenes\...`). Always clone into a pure ASCII path such as `C:\AndroidStudioProjects\EDU_Tycoon` or `C:\Dev\EDU_Tycoon`.
 
 ---
 
-## 🚀 Guía de Ejecución desde un Clon Limpio
+## 🚀 Execution Guide from a Clean Clone
 
-### 1. Clonar el repositorio
-Abre tu terminal y clona el proyecto:
+### 1. Clone the Repository
+Open your terminal and clone the repository:
 
 ```bash
 git clone https://github.com/MiguelCruz10/EDU_Tycoon.git
@@ -32,39 +32,41 @@ cd EDU_Tycoon
 
 ---
 
-### 2. Configurar el SDK de Android (`local.properties`)
-Gradle necesita conocer la ubicación de tu Android SDK. Crea un archivo llamado `local.properties` en la raíz del proyecto (`EDU_Tycoon/local.properties`):
+### 2. Configure Android SDK (`local.properties`)
+Gradle requires the location of your local Android SDK. Create a file named `local.properties` at the root directory of the project (`EDU_Tycoon/local.properties`):
 
-- **En Windows:**
+- **On Windows:**
   ```properties
-  sdk.dir=C\:\\Users\\<TU_USUARIO>\\AppData\\Local\\Android\\Sdk
+  sdk.dir=C\:\\Users\\<YOUR_USERNAME>\\AppData\\Local\\Android\\Sdk
   ```
-- **En Linux / macOS:**
+- **On Linux:**
   ```properties
-  sdk.dir=/home/<TU_USUARIO>/Android/Sdk
-  # o en Mac:
-  sdk.dir=/Users/<TU_USUARIO>/Library/Android/sdk
+  sdk.dir=/home/<YOUR_USERNAME>/Android/Sdk
   ```
-*(Nota: Si abres el proyecto en Android Studio por primera vez, este archivo se genera automáticamente).*
+- **On macOS:**
+  ```properties
+  sdk.dir=/Users/<YOUR_USERNAME>/Library/Android/sdk
+  ```
+*(Note: If you open the project directly in Android Studio, this file is created automatically).*
 
 ---
 
-### 3. Ejecución desde Android Studio (Recomendado)
+### 3. Running from Android Studio (Recommended)
 
-1. Abre **Android Studio**.
-2. Selecciona **Open** y elige la carpeta raíz del proyecto (`EDU_Tycoon`).
-3. Espera a que termine la sincronización inicial de Gradle (*Gradle Sync*).
-4. Conecta tu dispositivo Android físico por USB (con **Depuración por USB** activada) o inicia un Emulador Android (AVD).
-5. En la barra superior, asegúrate de tener seleccionada la configuración de ejecución **`android`** (o `app`).
-6. Presiona el botón **Run ▶** (`Shift + F10`).
+1. Open **Android Studio**.
+2. Select **File > Open...** and choose the root directory of the project (`EDU_Tycoon`).
+3. Allow Gradle to download dependencies and finish project synchronization (*Gradle Sync*).
+4. Connect a physical Android device via USB with **USB Debugging** enabled, or launch an Android Virtual Device (AVD).
+5. In the top toolbar, ensure the run configuration is set to **`android`**.
+6. Click the green **Run ▶** button (`Shift + F10`).
 
 ---
 
-### 4. Ejecución y compilación por Línea de Comandos
+### 4. Running and Building via Command Line
 
-El proyecto incluye el Gradle Wrapper listo para compilar y ejecutar tareas.
+The repository provides the Gradle Wrapper pre-configured with Gradle 9.5.0:
 
-#### Correr pruebas unitarias:
+#### Run Unit Tests:
 - **Windows:**
   ```cmd
   gradlew.bat test
@@ -74,7 +76,7 @@ El proyecto incluye el Gradle Wrapper listo para compilar y ejecutar tareas.
   ./gradlew test
   ```
 
-#### Compilar el APK de depuración (Debug):
+#### Assemble Debug APK:
 - **Windows:**
   ```cmd
   gradlew.bat android:assembleDebug
@@ -83,19 +85,24 @@ El proyecto incluye el Gradle Wrapper listo para compilar y ejecutar tareas.
   ```bash
   ./gradlew android:assembleDebug
   ```
-El archivo APK resultante se generará en:  
+The output APK will be placed at:  
 `android/build/outputs/apk/debug/android-debug.apk`
 
-#### Instalar y ejecutar directamente en un dispositivo conectado (vía ADB):
-```bash
-./gradlew android:installDebug
-```
+#### Install and Run directly on a connected device (via ADB):
+- **Windows:**
+  ```cmd
+  gradlew.bat android:installDebug
+  ```
+- **Linux / macOS:**
+  ```bash
+  ./gradlew android:installDebug
+  ```
 
 ---
 
-## 📁 Estructura del Proyecto
+## 📁 Project Architecture
 
-- **`core/`**: Lógica central del videojuego, motores de ciclo (`GameCycleEngine`), economía (`EconomyEngine`), eventos (`EventEngine`), interfaces de Scene2D y pantallas (`GameScreen`).
-- **`android/`**: Módulo Android, manifiesto, configuración de pantalla landscape y lanzador `AndroidLauncher`.
-- **`assets/`**: Recursos del juego (sprites, mapas Tiled `.tmx`, fuentes tipográficas, texturas e interfaces).
-- **`docs/`**: Documentación académica, evidencias de ejecución por integrante y matrices de pruebas.
+- **`core/`**: Multiplatform game logic written in pure Kotlin. Contains the game cycle engine (`GameCycleEngine`), passive economy calculations (`EconomyEngine`), event systems (`EventEngine`), and Scene2D/libKTX stages (`GameScreen`).
+- **`android/`**: Android-specific module containing `AndroidManifest.xml` (landscape orientation), native libraries, asset packaging, and `AndroidLauncher`.
+- **`assets/`**: Shared game assets including Tiled maps (`.tmx`), tilesets, UI textures, sprite sheets, and TrueType fonts (`font.ttf`).
+- **`docs/`**: Project documentation, academic delivery materials, testing matrices, and execution evidence.
