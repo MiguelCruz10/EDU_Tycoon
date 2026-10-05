@@ -123,7 +123,7 @@ class EventEngine(
 
     private fun aplicarEfecto(evento: GameEvent) {
         when (val efecto = evento.efecto) {
-            is EventoEfecto.Gasto   -> GameState.gastar(efecto.cantidad)
+            is EventoEfecto.Gasto   -> GameState.descontarHastaCero(efecto.cantidad)
             is EventoEfecto.Ingreso -> GameState.acreditar(efecto.cantidad)
         }
     }

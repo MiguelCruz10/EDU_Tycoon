@@ -193,6 +193,7 @@ class GameScreen(game: Main) : BaseScreen(game) {
     }
 
     // ── HUD ───────────────────────────────────────────────────────────
+    private var moneySymbolLabel: Label? = null
     private var moneyLabel:       Label? = null
     private var alumnosLabel:     Label? = null
     private var reputationLabel:  Label? = null
@@ -589,7 +590,8 @@ class GameScreen(game: Main) : BaseScreen(game) {
             add(Table().apply {
                 background = whiteDrawable
                 pad(8f)
-                add(Label("$ ", goldStyle))
+                moneySymbolLabel = Label("$ ", goldStyle)
+                add(moneySymbolLabel)
                 add(moneyLabel).padRight(20f)
                 add(Label("Alumnos: ", cyanStyle))
                 add(alumnosLabel).padRight(20f)
@@ -744,6 +746,11 @@ class GameScreen(game: Main) : BaseScreen(game) {
         if (GameState.dinero != lastMoney) {
             lastMoney = GameState.dinero
             moneyLabel?.setText(formatMoney(lastMoney))
+
+            // Feedback visual: Si no hay fondos suficientes ($0), mostrar en rojo
+            val colorDinero = if (lastMoney == 0L) Color.RED else Color.GOLD
+            moneyLabel?.color = colorDinero
+            moneySymbolLabel?.color = colorDinero
         }
 
         if (cachedTotalAlumnos != lastStudents) {
@@ -854,9 +861,14 @@ class GameScreen(game: Main) : BaseScreen(game) {
             is EventoEfecto.Ingreso -> e.cantidad
         }
         val signo = if (esGasto) "-" else "+"
+        val detalle = if (esGasto && GameState.dinero == 0L) {
+            "${signo}\$${formatMoney(cantidad)} (¡FONDOS EN CERO!) — ${evento.descripcion}"
+        } else {
+            "${signo}\$${formatMoney(cantidad)} — ${evento.descripcion}"
+        }
         eventTituloLabel?.setText(evento.titulo)
         eventTituloLabel?.setColor(if (esGasto) Color.RED else Color.GREEN)
-        eventEfectoLabel?.setText("${signo}\$${formatMoney(cantidad)}  —  ${evento.descripcion}")
+        eventEfectoLabel?.setText(detalle)
         eventEfectoLabel?.setColor(if (esGasto) Color.RED else Color.GREEN)
         toast.clearActions()
         toast.color.a = 0f

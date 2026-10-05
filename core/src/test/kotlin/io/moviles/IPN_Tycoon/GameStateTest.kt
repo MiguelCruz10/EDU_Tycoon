@@ -43,4 +43,22 @@ class GameStateTest {
 
         assertEquals(20_000L, GameState.costoMejora(propiedad))
     }
+
+    @Test
+    fun `descontarHastaCero discounts exact amount when funds are sufficient`() {
+        val descontado = GameState.descontarHastaCero(200_000L)
+        assertEquals(200_000L, descontado)
+        assertEquals(300_000L, GameState.dinero)
+    }
+
+    @Test
+    fun `descontarHastaCero caps money at zero and never goes negative`() {
+        val descontado = GameState.descontarHastaCero(600_000L)
+        assertEquals(500_000L, descontado)
+        assertEquals(0L, GameState.dinero)
+
+        val descontadoExtra = GameState.descontarHastaCero(50_000L)
+        assertEquals(0L, descontadoExtra)
+        assertEquals(0L, GameState.dinero)
+    }
 }
