@@ -26,6 +26,16 @@ object GameState {
         return true
     }
 
+    /**
+     * Descuenta hasta agotar el saldo disponible sin permitir que caiga en negativo.
+     * Retorna la cantidad efectivamente descontada.
+     */
+    fun descontarHastaCero(cantidad: Long): Long {
+        val descontado = minOf(dinero, cantidad)
+        dinero = maxOf(0L, dinero - cantidad)
+        return descontado
+    }
+
     fun acreditar(cantidad: Long) { dinero += cantidad }
 
     fun costoMejora(propiedad: Propiedad): Long =
